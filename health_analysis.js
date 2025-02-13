@@ -10,9 +10,10 @@ function addPatient() {
     const condition = document.getElementById("condition").value;
 
     if (name && gender && age && condition) {
-        patients.push({ name, gender: gender.value, age, condition });
+        patients.push({ "name": name, "gender": gender.value, "age": age, "condition": condition });
         resetForm();
         generateReport();
+        console.log(patients)
     }
 }
 
@@ -77,20 +78,20 @@ function searchCondition() {
         .then(data => {
         const condition = data.conditions.find(item => item.name.toLowerCase() === input);
 
-    if (condition) {
-        const symptoms = condition.symptoms.join(', ');
-        const prevention = condition.prevention.join(', ');
-        const treatment = condition.treatment;
+        if (condition) {
+            const symptoms = condition.symptoms.join(', ');
+            const prevention = condition.prevention.join(', ');
+            const treatment = condition.treatment;
 
-        resultDiv.innerHTML += `<h2>${condition.name}</h2>`;
-        resultDiv.innerHTML += `<img src="${condition.imagesrc}" alt="hjh">`;
+            resultDiv.innerHTML += `<h2>${condition.name}</h2>`;
+            resultDiv.innerHTML += `<img src="${condition.imagesrc}" alt="hjh">`;
 
-        resultDiv.innerHTML += `<p><strong>Symptoms:</strong> ${symptoms}</p>`;
-        resultDiv.innerHTML += `<p><strong>Prevention:</strong> ${prevention}</p>`;
-        resultDiv.innerHTML += `<p><strong>Treatment:</strong> ${treatment}</p>`;
-    } else {
-        resultDiv.innerHTML = 'Condition not found.';
-    }
+            resultDiv.innerHTML += `<p><strong>Symptoms:</strong> ${symptoms}</p>`;
+            resultDiv.innerHTML += `<p><strong>Prevention:</strong> ${prevention}</p>`;
+            resultDiv.innerHTML += `<p><strong>Treatment:</strong> ${treatment}</p>`;
+        } else {
+            resultDiv.innerHTML = 'Condition not found.';
+        }
     })
     .catch(error => {
     console.error('Error:', error);
